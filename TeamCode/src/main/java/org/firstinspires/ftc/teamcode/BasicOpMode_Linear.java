@@ -86,6 +86,7 @@ public class BasicOpMode_Linear extends LinearOpMode {
             double leftPower;
             double rightPower;
             double random;
+            double random1;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
