@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -63,6 +64,8 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
 
+    private CRServo intake = null;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -75,6 +78,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rfdrive");
         leftBackDrive = hardwareMap.get(DcMotor.class, "lbdrive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rbdrive");
+        intake = hardwareMap.get(CRServo.class, "intake");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -82,6 +86,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -95,11 +100,23 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             double forward = 1;
             double turningFactor = 0.75;
 
+            boolean intakeOn = false;
+
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
+
+            if (gamepad1.start){
+                if (!intakeOn){ intakeOn = true; }
+
+                else{ intakeOn = false;}
+            }
+
+            if (intakeOn) {
+                intake.setPower(1);
+            }
 
             if (gamepad1.right_stick_x == 0){
                 leftBackDrive.setPower(forward * -gamepad1.right_stick_y);
