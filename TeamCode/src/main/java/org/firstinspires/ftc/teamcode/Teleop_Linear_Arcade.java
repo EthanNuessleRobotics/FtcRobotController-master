@@ -116,6 +116,8 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
             if (intakeOn) {
                 intake.setPower(1);
+            }else {
+                intake.setPower(0.5);
             }
 
             if (gamepad1.right_stick_x == 0){
