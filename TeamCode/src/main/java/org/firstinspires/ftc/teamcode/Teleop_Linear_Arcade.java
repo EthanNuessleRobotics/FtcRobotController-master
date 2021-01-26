@@ -92,6 +92,9 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        //Set intake on variable (start with intake off)
+        boolean intakeOn = false;
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -100,7 +103,6 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             double forward = 1;
             double turningFactor = 0.75;
 
-            boolean intakeOn = false;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
@@ -108,12 +110,17 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
 
-            if (gamepad1.start){
-                if (!intakeOn){ intakeOn = true; }
+            //Check if start is pressed (intake toggle button) if on turn off or vice versa
+            if (gamepad1.start) {
+                if (!intakeOn) {
+                    intakeOn = true;
+                } else {
+                    intakeOn = false;
+                }
 
-                else{ intakeOn = false;}
             }
 
+            //Set power of intake if intakeOn is true or false
             if (intakeOn) {
                 intake.setPower(1);
             }else {
