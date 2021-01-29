@@ -112,12 +112,12 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
             //Check if start is pressed (intake toggle button) if on turn off or vice versa
             if (gamepad1.start) {
-                if (!intakeOn) {
-                    intake.setPower(1);
-                    intakeOn = true;
-                } else {
+                if (intakeOn){
                     intake.setPower(0.5);
                     intakeOn = false;
+                } else {
+                    intake.setPower(1);
+                    intakeOn = true;
                 }
 
             }
