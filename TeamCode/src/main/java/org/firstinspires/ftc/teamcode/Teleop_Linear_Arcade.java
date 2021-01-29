@@ -93,7 +93,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         runtime.reset();
 
         //Set intake on variable (start with intake off)
-        boolean intakeOn = false;
+        boolean intakeChanged = false;
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -111,16 +111,18 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             // - This uses basic math to combine motions and is easier to drive straight.
 
             //Check if start is pressed (intake toggle button) if on turn off or vice versa
-            if (gamepad1.start) {
-                if (intakeOn){
+            if (gamepad1.start && !intakeChanged) {
+                if (intake.getPower() == 1){
                     intake.setPower(0.5);
-                    intakeOn = false;
                 } else {
                     intake.setPower(1);
-                    intakeOn = true;
                 }
-
+                intakeChanged = true;
             }
+            if (!gamepad1.start) {
+                intakeChanged = false;
+            }
+
             //FIX INTAKE
 
             if (gamepad1.right_stick_x == 0){
