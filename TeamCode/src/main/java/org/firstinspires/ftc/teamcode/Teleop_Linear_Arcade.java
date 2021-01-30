@@ -94,7 +94,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
         //Set intake on variable (start with intake off)
         boolean intakeChanged = false;
-        boolean isStrafing = false;
+
 
 
         // run until the end of the match (driver presses STOP)
@@ -105,6 +105,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             double forward = 1;
             double turningFactor = 0.75;
 
+            boolean isStrafing = false;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
