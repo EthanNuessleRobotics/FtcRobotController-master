@@ -127,6 +127,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
             //Straifing
 
+            //NEED TO FIX ISSUE WHERE STRAIFING DOES NOT TURN OFF
             if(gamepad1.right_bumper) {
                 leftFrontDrive.setPower(-1);
                 rightFrontDrive.setPower(1);
