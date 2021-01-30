@@ -139,6 +139,8 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
                 leftBackDrive.setPower(-1);
                 rightBackDrive.setPower(1);
                 isStrafing = true;
+            }else{
+                isStrafing = false;
             }
 
             if(!isStrafing){
