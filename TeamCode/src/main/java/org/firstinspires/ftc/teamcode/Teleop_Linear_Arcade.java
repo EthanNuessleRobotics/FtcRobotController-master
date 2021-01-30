@@ -94,6 +94,8 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
         //Set intake on variable (start with intake off)
         boolean intakeChanged = false;
+        boolean isStrafing = false;
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -123,44 +125,64 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
                 intakeChanged = false;
             }
 
-            if (gamepad1.left_stick_x == 0){
-                leftBackDrive.setPower(forward * -gamepad1.left_stick_y);
-                leftFrontDrive.setPower(forward * -gamepad1.left_stick_y);
-                rightBackDrive.setPower(forward * -gamepad1.left_stick_y);
-                rightFrontDrive.setPower(forward * -gamepad1.left_stick_y);
+            //Straifing
 
+            if(gamepad1.right_bumper) {
+                leftFrontDrive.setPower(-1);
+                rightFrontDrive.setPower(1);
+                leftBackDrive.setPower(1);
+                rightBackDrive.setPower(-1);
+                isStrafing = true;
+            }else if(gamepad1.left_bumper) {
+                leftFrontDrive.setPower(1);
+                rightFrontDrive.setPower(-1);
+                leftBackDrive.setPower(-1);
+                rightBackDrive.setPower(1);
+                isStrafing = true;
             }
-            else if (-gamepad1.left_stick_y == 0){
-                leftBackDrive.setPower(forward * gamepad1.left_stick_x);
-                leftFrontDrive.setPower(backward * gamepad1.left_stick_x);
-                rightBackDrive.setPower(forward * gamepad1.left_stick_x);
-                rightFrontDrive.setPower(backward * gamepad1.left_stick_x);
 
+            if(!isStrafing){
+                if (gamepad1.left_stick_x == 0){
+                    leftBackDrive.setPower(forward * -gamepad1.left_stick_y);
+                    leftFrontDrive.setPower(forward * -gamepad1.left_stick_y);
+                    rightBackDrive.setPower(forward * -gamepad1.left_stick_y);
+                    rightFrontDrive.setPower(forward * -gamepad1.left_stick_y);
+
+                }
+                else if (-gamepad1.left_stick_y == 0){
+                    leftBackDrive.setPower(forward * gamepad1.left_stick_x);
+                    leftFrontDrive.setPower(backward * gamepad1.left_stick_x);
+                    rightBackDrive.setPower(forward * gamepad1.left_stick_x);
+                    rightFrontDrive.setPower(backward * gamepad1.left_stick_x);
+
+                }
+                else if((gamepad1.left_stick_x*-gamepad1.left_stick_y)>0){
+                    if(gamepad1.left_stick_x > 0){
+                        rightFrontDrive.setPower(forward);
+                        leftBackDrive.setPower(forward);
+                    }
+                    else{
+                        rightFrontDrive.setPower(-forward);
+                        leftBackDrive.setPower(-forward);
+                    }
+                    rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                }
+                else if((gamepad1.left_stick_x*-gamepad1.left_stick_y)<0){
+                    if(gamepad1.left_stick_x < 0){
+                        leftFrontDrive.setPower(forward);
+                        rightBackDrive.setPower((forward));
+                    }
+                    else{
+                        leftFrontDrive.setPower(-forward);
+                        rightBackDrive.setPower(-forward);
+                    }
+                    rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                }
             }
-            else if((gamepad1.left_stick_x*-gamepad1.left_stick_y)>0){
-                if(gamepad1.left_stick_x > 0){
-                    rightFrontDrive.setPower(forward);
-                    leftBackDrive.setPower(forward);
-                }
-                else{
-                    rightFrontDrive.setPower(-forward);
-                    leftBackDrive.setPower(-forward);
-                }
-                rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            }
-            else if((gamepad1.left_stick_x*-gamepad1.left_stick_y)<0){
-                if(gamepad1.left_stick_x < 0){
-                    leftFrontDrive.setPower(forward);
-                    rightBackDrive.setPower((forward));
-                }
-                else{
-                    leftFrontDrive.setPower(-forward);
-                    rightBackDrive.setPower(-forward);
-                }
-                rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            }
+
+
 
 
 
