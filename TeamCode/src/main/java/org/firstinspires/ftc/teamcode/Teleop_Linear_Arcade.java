@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear Arcade OpMode", group="Linear Opmode")
+@TeleOp(name="Teleop Linear Arcade OpMode 2020-2021", group="Linear Opmode")
 //@Disabled
 public class Teleop_Linear_Arcade extends LinearOpMode {
 
@@ -113,7 +113,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             //Check if start is pressed (intake toggle button) if on turn off or vice versa
             if (gamepad1.start && !intakeChanged) {
                 if (intake.getPower() == 1){
-                    intake.setPower(0.5);
+                    intake.setPower(0);
                 } else {
                     intake.setPower(1);
                 }
