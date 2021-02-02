@@ -65,6 +65,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this Op Mode to the Driver Station OpMode list
+ *
+ *
+ *
+ * X to toggle light on and off
+ * A to increase gain B to decrease
+ *
+ *
+ *
+ *
+ *
  */
 @TeleOp(name = "Sensor: Color", group = "Sensor")
 @Disabled
