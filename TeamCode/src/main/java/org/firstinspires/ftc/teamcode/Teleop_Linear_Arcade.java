@@ -64,6 +64,8 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
 
+
+    private DcMotor launcher = null;
     private CRServo intake = null;
 
     @Override
@@ -79,6 +81,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         leftBackDrive = hardwareMap.get(DcMotor.class, "lbdrive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rbdrive");
         intake = hardwareMap.get(CRServo.class, "intake");
+        launcher = hardwareMap.get(DcMotor.class, "launcher");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -87,6 +90,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        launcher.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -95,6 +99,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         //Set intake on variable (start with intake off)
         boolean intakeChanged = false;
         boolean isStrafing = false;
+        boolean launcherChanged = false;
 
 
         // run until the end of the match (driver presses STOP)
@@ -124,6 +129,31 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             }
             if (!gamepad1.start) {
                 intakeChanged = false;
+            }
+
+            //Launcher Toggle
+            if (gamepad1.a && !launcherChanged) {
+                if (launcher.getPower() == 1){
+                    launcher.setPower(0);
+                } else {
+                    launcher.setPower(1);
+                }
+                launcherChanged = true;
+            }
+            if (!gamepad1.a) {
+                launcherChanged = false;
+            }
+
+            if (gamepad1.b && !launcherChanged) {
+                if (launcher.getPower() == -1){
+                    launcher.setPower(0);
+                } else {
+                    launcher.setPower(-1);
+                }
+                launcherChanged = true;
+            }
+            if (!gamepad1.b) {
+                launcherChanged = false;
             }
 
             //Straifing
