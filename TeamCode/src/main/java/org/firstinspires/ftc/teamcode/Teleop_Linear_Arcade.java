@@ -90,7 +90,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
-        launcher.setDirection(DcMotorSimple.Direction.FORWARD);
+        launcher.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -141,18 +141,6 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
                 launcherChanged = true;
             }
             if (!gamepad1.a) {
-                launcherChanged = false;
-            }
-
-            if (gamepad1.b && !launcherChanged) {
-                if (launcher.getPower() == -1){
-                    launcher.setPower(0);
-                } else {
-                    launcher.setPower(-1);
-                }
-                launcherChanged = true;
-            }
-            if (!gamepad1.b) {
                 launcherChanged = false;
             }
 
