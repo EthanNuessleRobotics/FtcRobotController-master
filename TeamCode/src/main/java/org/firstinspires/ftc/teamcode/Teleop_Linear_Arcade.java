@@ -99,8 +99,8 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         //Set intake on variable (start with intake off)
         boolean intakeChanged = false;
         boolean isStrafing = false;
-        boolean launcherChanged = false;
-
+        boolean launcherChangedA = false;
+        boolean launcherChangedB = false;
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -132,18 +132,29 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             }
 
             //Launcher Toggle
-            if (gamepad1.a && !launcherChanged) {
+            if (gamepad1.a && !launcherChangedA) {
                 if (launcher.getPower() == 1){
                     launcher.setPower(0);
                 } else {
                     launcher.setPower(1);
                 }
-                launcherChanged = true;
+                launcherChangedA = true;
             }
             if (!gamepad1.a) {
-                launcherChanged = false;
+                launcherChangedA = false;
             }
 
+            if (gamepad1.b && !launcherChangedB) {
+                if (launcher.getPower() == -1){
+                    launcher.setPower(0);
+                } else {
+                    launcher.setPower(-1);
+                }
+                launcherChangedB = true;
+            }
+            if (!gamepad1.b) {
+                launcherChangedB = false;
+            }
             //Straifing
 
             //NEED TO FIX ISSUE WHERE STRAIFING DOES NOT TURN OFF
