@@ -119,7 +119,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             // - This uses basic math to combine motions and is easier to drive straight.
 
             //Check if start is pressed (intake toggle button) if on turn off or vice versa
-            if (gamepad1.start && !intakeChanged) {
+            if (gamepad1.x && !intakeChanged) {
                 if (intake.getPower() == 1){
                     intake.setPower(0);
                 } else {
@@ -127,7 +127,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
                 }
                 intakeChanged = true;
             }
-            if (!gamepad1.start) {
+            if (!gamepad1.x) {
                 intakeChanged = false;
             }
 
