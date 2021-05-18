@@ -67,6 +67,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
     private DcMotor launcher = null;
     private CRServo intake = null;
+    private CRServo wheelsIntake = null;
 
     @Override
     public void runOpMode() {
@@ -81,6 +82,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         leftBackDrive = hardwareMap.get(DcMotor.class, "lbdrive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rbdrive");
         intake = hardwareMap.get(CRServo.class, "intake");
+        wheelsIntake = hardwareMap.get(CRServo.class, "wheelsIntake");
         launcher = hardwareMap.get(DcMotor.class, "launcher");
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -90,6 +92,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        wheelsIntake.setDirection(DcMotorSimple.Direction.FORWARD);
         launcher.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
@@ -98,6 +101,7 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
 
         //Set intake on variable (start with intake off)
         boolean intakeChanged = false;
+        boolean wheeltakeChanged = false;
         boolean isStrafing = false;
         boolean launcherChangedA = false;
         boolean launcherChangedB = false;
@@ -129,6 +133,18 @@ public class Teleop_Linear_Arcade extends LinearOpMode {
             }
             if (!gamepad1.start) {
                 intakeChanged = false;
+            }
+
+            if (gamepad1.y && !wheeltakeChanged) {
+                if (wheelsIntake.getPower() == 1){
+                    wheelsIntake.setPower(0);
+                } else {
+                    wheelsIntake.setPower(1);
+                }
+                wheeltakeChanged = true;
+            }
+            if (!gamepad1.y) {
+                wheeltakeChanged = false;
             }
 
             //Launcher Toggle
